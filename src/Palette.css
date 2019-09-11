@@ -6,27 +6,4 @@
     height: 90%;
 }
 
-.Slider{
-    width: 340px;
-    display: inline-block;
-    margin: 0 3px;
-}
 
-.rc-slider-track{
-    background: transparent !important;
-}
-
-.rc-slider-handle,
-.rc-slider-handle:focus,
-.rc-slider-handle:active,
-.rc-slider-handle:hover{
-    background: #229267 !important;
-    border: 0 !important;
-    outline: none !important;
-    box-shadow: none !important;
-    width: 24px !important;
-    height: 16px !important;
-}
-.rc-slider-rail{
-    height: 8px !important;
-}
