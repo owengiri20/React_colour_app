@@ -3,7 +3,19 @@
 }
 
 .Palette-colours{
-    height: 90%;
+    height: 87%;
 }
 
+.Palette-footer{
+    display: flex;
+    /* height: 100%; */
+    justify-content: flex-end;
+    height: 6vh;
+    align-items: center;
+    
+}
 
+.Palette-footer span {
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
