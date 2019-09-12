@@ -33,9 +33,7 @@ function generatePalette(starterPalette) {
         paletteName: starterPalette.paletteName,
         id: starterPalette.id,
         emoji: starterPalette.emoji,
-        colours: {
-
-        }
+        colours: {}
     };
 
     for (let level of levels) {
