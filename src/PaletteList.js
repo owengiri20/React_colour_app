@@ -34,10 +34,29 @@ const styles = {
         gridTemplateColumns: "repeat(3, 30%)",
         gridGap: "5%"
 
+    },
+    linkPalette: {
+        textDecoration: "none",
+        color: "#000",
+        "&:hover": {
+            cursor: "pointer",
+            transform: "scale(1.05)"
+        }
+
     }
 }
 
 class PaletteList extends Component {
+    constructor(props) {
+        super(props);
+        this.state = {}
+        this.gotToPalette = this.gotToPalette.bind(this)
+    }
+
+    gotToPalette(id) {
+        this.props.history.push(`/palette/${id}`)
+    }
+
     render() {
         const { palettes, classes } = this.props;
         return (
@@ -48,8 +67,9 @@ class PaletteList extends Component {
                     </nav>
                     <div className={classes.palettes}>
                         {palettes.map(p => {
-                            // console.log(p);
-                            return <MiniPalette {...p} />
+                            return (
+                                <MiniPalette {...p} handleClick={() => this.gotToPalette(p.id)} />
+                            )
                         })}
                     </div>
                 </div>
