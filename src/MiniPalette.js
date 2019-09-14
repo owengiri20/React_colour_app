@@ -23,8 +23,6 @@ const styles = {
         paddingTop: ".5rem",
         fontSize: "1rem",
         position: "relative"
-
-
     },
     colours: {
 
