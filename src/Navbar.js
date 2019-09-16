@@ -6,8 +6,9 @@ import MenuItem from '@material-ui/core/MenuItem';
 import CloseIcon from '@material-ui/icons/Close';
 import Snackbar from '@material-ui/core/Snackbar';
 import 'rc-slider/assets/index.css';
-import "./Navbar.css"
+import { withStyles } from "@material-ui/styles"
 import IconButton from '@material-ui/core/IconButton';
+import styles from "./styles/NavbarStyles"
 
 class Navbar extends Component {
     constructor(props) {
@@ -29,22 +30,22 @@ class Navbar extends Component {
     }
 
     render() {
-        const { level, changeLevel, showingAllColours } = this.props;
+        const { level, changeLevel, showingAllColours, classes } = this.props;
         const { format } = this.state
         return (
-            <div className="Navbar">
-                <div className="logo">
+            <div className={classes.Navbar}>
+                <div className={classes.logo}>
                     <Link to="/">ReactColours</Link>
                 </div>
-                {showingAllColours && <div className="Slider-container">
+                {showingAllColours && <div>
                     <span>Level: {level}</span>
-                    <div className="Slider">
+                    <div className={classes.Slider}>
                         <Slider defaultValue={level} min={100} max={900}
                             step={100} onAfterChange={changeLevel} />
                     </div>
                 </div>}
 
-                <div className="select-container">
+                <div className={classes.selectContainer}>
                     <Select onChange={this.handleFormatChange} value={format}>
                         <MenuItem value="hex">HEX: #f4f4f4</MenuItem>
                         <MenuItem value="rgb">RGB: rgb(255,55,67)</MenuItem>
@@ -69,4 +70,4 @@ class Navbar extends Component {
     }
 }
 
-export default Navbar;
+export default withStyles(styles)(Navbar);
