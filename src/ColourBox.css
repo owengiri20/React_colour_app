@@ -72,8 +72,12 @@
 .light-text {
     color: #fff;
 }
+.dark-text{
+    color: #333;
+    
+}
 
-.see-more{
+/* .see-more{
     position: absolute;
     right: 0;
     bottom: 0;
@@ -85,7 +89,7 @@
     border: 0;
     text-align: center;
     line-height: 30px;
-}
+} */
 
 .copy-overlay{
     opacity: 0;
