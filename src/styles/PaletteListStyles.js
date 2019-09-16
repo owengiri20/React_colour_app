@@ -22,7 +22,7 @@ export default {
         color: "white",
         "& a": {
             color: "#fff",
-            textDecoration: "none"
+            textDecoration: "none",
         }
 
     },
