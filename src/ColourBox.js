@@ -18,6 +18,10 @@ const styles = {
             opacity: "1"
         }
     },
+
+    goBack: {
+        backgroundColor: "black"
+    },
     copyText: {
         color: (props) => chroma(props.background).luminance() >= .7 ? "black" : "white"
     },
@@ -51,7 +55,76 @@ const styles = {
         border: "0",
         textTransform: "uppercase",
         color: "#fff",
-        opacity: "0"
+        opacity: "0",
+        cursor: "pointer",
+        transition: ".12s"
+    },
+    boxContent: {
+        position: "absolute",
+        padding: "10px",
+        width: "100%",
+        left: "0px",
+        bottom: "0px",
+        letterSpacing: "1px",
+        textTransform: "uppercase",
+        fontSize: "12px",
+        color: "#000"
+    },
+    copyOverlay: {
+        opacity: "0",
+        zIndex: "0",
+        width: "100%",
+        height: "100%",
+        transition: "transform 1s ease-in-out",
+        transform: "scale(0.1)",
+        overflow: "hidden"
+
+
+    },
+    showOverlay: {
+        opacity: "1",
+        transform: "scale(20)",
+        zIndex: "10",
+        position: "absolute",
+        overflow: "hidden"
+    },
+    copyMsg: {
+        position: "fixed",
+        left: "0",
+        bottom: "0",
+        top: "0",
+        right: "0",
+        display: "flex",
+        flexDirection: "column",
+        alignItems: "center",
+        justifyContent: "center",
+        fontSize: "3rem",
+        transform: "scale(.1)",
+        opacity: "0",
+        color: "#fff",
+        overflowY: "hidden",
+        "& h1": {
+            fontWeight: "400",
+            textShadow: "1px 2px #0000008e",
+            background: "#ffffff42",
+            marginBottom: "0",
+            width: "100%",
+            textAlign: "center",
+            alignContent: "center",
+            textTransform: "uppercase"
+        }
+    },
+    showCopyMsg: {
+        opacity: "1",
+        transform: "scale(1)",
+        zIndex: "20",
+        transition: "all .5s",
+        transitionDelay: ".3s",
+        overflowY: "hidden",
+        "& p": {
+            fontSize: "2rem",
+            fontWeight: "200"
+        }
     }
 }
 
@@ -77,14 +150,12 @@ class ColourBox extends Component {
         return (
             <CopyToClipboard text={background} onCopy={this.changeCopyState}>
                 <div style={{ background }} className={classes.colourBox}>
-                    <div style={{ background }} className={`copy-overlay ${copied && "show"}`}></div>
-                    <div className={`copy-msg ${copied && "show"}`}>
+                    <div style={{ background }} className={`${classes.copyOverlay} ${copied && classes.showOverlay}`}></div>
+                    <div className={`${classes.copyMsg} ${copied && classes.showCopyMsg}`}>
                         <h1 className={""}>copied!</h1>
                         <p className={classes.copyText}>{background}</p>
                     </div>
-                    <div className="copy-container">
-                    </div>
-                    <div className="box-content">
+                    <div className={classes.boxContent}>
                         <span className={classes.colourName}>{name}</span>
                     </div>
                     <button className={classes.copyButton}>
