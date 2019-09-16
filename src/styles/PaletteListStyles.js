@@ -13,13 +13,17 @@ export default {
         alignItems: "flex-start",
         flexDirection: "column",
         flexWrap: "wrap",
-        // border: "3px solid white"
     },
     nav: {
         display: "flex",
         width: "100%",
         justifyContent: "space-between",
-        color: "white"
+        alignItems: "center",
+        color: "white",
+        "& a": {
+            color: "#fff",
+            textDecoration: "none"
+        }
 
     },
     palettes: {
