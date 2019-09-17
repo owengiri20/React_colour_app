@@ -86,8 +86,10 @@ class NewPaletteForm extends Component {
         super(props);
         this.state = {
             open: true,
-            currentColour: "teal"
+            currentColour: "teal",
+            colours: ["red", "#000"]
         };
+        this.addNewColour = this.addNewColour.bind(this);
     }
 
 
@@ -101,6 +103,15 @@ class NewPaletteForm extends Component {
 
     updateCurrentColour(newColour) {
         this.setState({ currentColour: newColour })
+    }
+
+    addNewColour() {
+        const { currentColour } = this.state;
+        this.setState((st) => ({ colours: [...st.colours, currentColour] }))
+    }
+
+    addColour() {
+
     }
 
     render() {
@@ -156,16 +167,26 @@ class NewPaletteForm extends Component {
 
                     }} />
 
-                    <Button variant="contained" color="primary" style={{ backgroundColor: this.state.currentColour }}>Add Colour</Button>
+                    <Button
+                        variant="contained"
+                        color="primary"
+                        style={{ backgroundColor: this.state.currentColour }}
+                        onClick={this.addNewColour}>
+                        Add Colour
+                    </Button>
 
                 </Drawer>
                 <main
                     className={classNames(classes.content, {
                         [classes.contentShift]: open,
-                    })}
-                >
-                    <div className={classes.drawerHeader} />
+                    })}>
 
+                    <div className={classes.drawerHeader} />
+                    <ul>
+                        {this.state.colours.map(colour => (
+                            <li style={{ backgroundColor: colour }}>{colour}</li>
+                        ))}
+                    </ul>
                 </main>
             </div>
         );
