@@ -89,7 +89,8 @@ class NewPaletteForm extends Component {
             open: true,
             currentColour: "teal",
             colors: [{ name: "red", color: "red" }],
-            newName: ""
+            newColourName: "",
+            newPaletteName: ""
         };
         this.addNewColour = this.addNewColour.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -110,6 +111,12 @@ class NewPaletteForm extends Component {
                 ({ color }) => color !== this.state.currentColour
             )
         });
+
+        ValidatorForm.addValidationRule('isPaletteNameUnique', value => {
+            return this.props.palettes.every(
+                ({ paletteName }) => paletteName.toLocaleLowerCase() !== value.toLocaleLowerCase()
+            )
+        });
     }
 
     handleDrawerOpen = () => {
@@ -125,23 +132,27 @@ class NewPaletteForm extends Component {
     }
 
     addNewColour() {
-        const { currentColour, newName } = this.state;
-        const newColour = { name: newName, color: currentColour };
-        this.setState((st) => ({ colors: [...st.colors, newColour], newName: "" }));
+        const { currentColour, newColourName } = this.state;
+        const newColour = { name: newColourName, color: currentColour };
+        this.setState((st) => ({ colors: [...st.colors, newColour], newColourName: "" }));
     }
 
+    /////////////////////////////////////////// 
     handleChange(evt) {
-        this.setState({ newName: evt.target.value });
+        this.setState({
+            [evt.target.name]: evt.target.value
+        });
+
     }
 
     handleSubmit() {
-        let newName = "New test palette";
+        let newName = this.state.newPaletteName;
         const newPalette = { paletteName: newName, id: newName.toLocaleLowerCase().replace(/ /g, "-"), colors: this.state.colors };
         this.props.savePalette(newPalette);
         this.props.history.push("/")
+        console.log(newPalette);
 
     }
-
 
     render() {
         const { classes, theme } = this.props;
@@ -167,8 +178,20 @@ class NewPaletteForm extends Component {
                         </IconButton>
                         <Typography variant="h6" color="inherit" noWrap>
                             Persistent drawer
-              </Typography>
-                        <Button variant="contained" color="secondary" onClick={this.handleSubmit}>Save</Button>
+                        </Typography>
+
+                        <ValidatorForm onSubmit={this.handleSubmit}>
+                            <TextValidator
+                                validators={["required", "isPaletteNameUnique"]}
+                                errorMessages={["this field is required", "Palette name already used"]}
+                                label="Palette Name"
+                                value={this.state.newPaletteName}
+                                onChange={this.handleChange}
+                                name="newPaletteName"
+                            />
+                            <Button variant="contained" color="secondary" type="submit">Save Palette</Button>
+                        </ValidatorForm>
+
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -199,13 +222,13 @@ class NewPaletteForm extends Component {
 
                     <ValidatorForm onSubmit={this.addNewColour}>
                         <TextValidator
-                            value={this.state.newName}
+                            value={this.state.newColourName}
+                            name="newColourName"
                             validators={['required', 'isColourNameUnique', 'isColourUnique']}
                             errorMessages={['field required', 'Colour name must be unique', 'colour must be unique']}
                             onChange={this.handleChange}
                         />
                         <Button
-
                             variant="contained"
                             color="primary"
                             style={{ backgroundColor: this.state.currentColour }}
