@@ -21,7 +21,6 @@ import { ChromePicker } from "react-color";
 import { Button } from '@material-ui/core';
 import DraggableColourBox from "./DraggableColourBox";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
-// adding colour picker, 8.50
 
 const drawerWidth = 400;
 
@@ -89,24 +88,26 @@ class NewPaletteForm extends Component {
         this.state = {
             open: true,
             currentColour: "teal",
-            colours: [{ name: "red", colour: "red" }],
+            colors: [{ name: "red", color: "red" }],
             newName: ""
         };
         this.addNewColour = this.addNewColour.bind(this);
         this.handleChange = this.handleChange.bind(this);
         this.updateCurrentColour = this.updateCurrentColour.bind(this);
+        this.handleSubmit = this.handleSubmit.bind(this);
+
     }
 
     componentDidMount() {
         ValidatorForm.addValidationRule('isColourNameUnique', value => {
-            return this.state.colours.every(
+            return this.state.colors.every(
                 ({ name }) => name.toLowerCase() !== value.toLowerCase()
             )
         });
 
         ValidatorForm.addValidationRule('isColourUnique', value => {
-            return this.state.colours.every(
-                ({ colour }) => colour !== this.state.currentColour
+            return this.state.colors.every(
+                ({ color }) => color !== this.state.currentColour
             )
         });
     }
@@ -125,12 +126,20 @@ class NewPaletteForm extends Component {
 
     addNewColour() {
         const { currentColour, newName } = this.state;
-        const newColour = { name: newName, colour: currentColour }
-        this.setState((st) => ({ colours: [...st.colours, newColour], newName: "" }))
+        const newColour = { name: newName, color: currentColour };
+        this.setState((st) => ({ colors: [...st.colors, newColour], newName: "" }));
     }
 
     handleChange(evt) {
-        this.setState({ newName: evt.target.value })
+        this.setState({ newName: evt.target.value });
+    }
+
+    handleSubmit() {
+        let newName = "New test palette";
+        const newPalette = { paletteName: newName, id: newName.toLocaleLowerCase().replace(/ /g, "-"), colors: this.state.colors };
+        this.props.savePalette(newPalette);
+        this.props.history.push("/")
+
     }
 
 
@@ -159,6 +168,7 @@ class NewPaletteForm extends Component {
                         <Typography variant="h6" color="inherit" noWrap>
                             Persistent drawer
               </Typography>
+                        <Button variant="contained" color="secondary" onClick={this.handleSubmit}>Save</Button>
                     </Toolbar>
                 </AppBar>
                 <Drawer
@@ -215,8 +225,8 @@ class NewPaletteForm extends Component {
                     })}>
 
                     <div className={classes.drawerHeader} />
-                    {this.state.colours.map(colour => (
-                        <DraggableColourBox colour={colour.colour} name={colour.name} />
+                    {this.state.colors.map(color => (
+                        <DraggableColourBox colour={color.color} name={color.name} />
                     ))}
                 </main>
             </div>
