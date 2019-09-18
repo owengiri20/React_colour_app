@@ -21,6 +21,8 @@ import { ChromePicker } from "react-color";
 import { Button } from '@material-ui/core';
 import DraggableColourBox from "./DraggableColourBox";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
+import DraggableColourList from "./DraggableColourList";
+import { arrayMove } from "react-sortable-hoc";
 
 const drawerWidth = 400;
 
@@ -96,6 +98,7 @@ class NewPaletteForm extends Component {
         this.handleChange = this.handleChange.bind(this);
         this.updateCurrentColour = this.updateCurrentColour.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
+        this.deleteColour = this.deleteColour.bind(this);
 
     }
 
@@ -144,6 +147,11 @@ class NewPaletteForm extends Component {
         });
 
     }
+    onSortEnd = ({ oldIndex, newIndex }) => {
+        this.setState(({ colors }) => ({
+            colors: arrayMove(colors, oldIndex, newIndex),
+        }));
+    };
 
     handleSubmit() {
         let newName = this.state.newPaletteName;
@@ -253,14 +261,14 @@ class NewPaletteForm extends Component {
                     })}>
 
                     <div className={classes.drawerHeader} />
-                    {this.state.colors.map(color => (
-                        <DraggableColourBox
-                            colour={color.color}
-                            handleClick={() => this.deleteColour(color.name)}
-                            name={color.name}
-                            key={color.name}
-                        />
-                    ))}
+                    {/* Dnd colour boxes goes here! */}
+                    <DraggableColourList
+                        axis="xy"
+                        colors={this.state.colors}
+                        deleteColour={this.deleteColour}
+                        onSortEnd={this.onSortEnd}
+                    />
+
                 </main>
             </div>
         );
