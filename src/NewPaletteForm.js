@@ -1,4 +1,8 @@
 import React, { Component } from 'react';
+
+import PaletteFormNav from "./PaletteFormNav";
+
+
 import classNames from 'classnames';
 import { withStyles } from '@material-ui/core/styles';
 import Drawer from '@material-ui/core/Drawer';
@@ -23,6 +27,7 @@ import DraggableColourBox from "./DraggableColourBox";
 import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import DraggableColourList from "./DraggableColourList";
 import { arrayMove } from "react-sortable-hoc";
+import { Link } from "react-router-dom";
 
 const drawerWidth = 400;
 
@@ -95,7 +100,6 @@ class NewPaletteForm extends Component {
             currentColour: "teal",
             colors: this.props.palettes[0].colors,
             newColourName: "",
-            newPaletteName: ""
         };
         this.addNewColour = this.addNewColour.bind(this);
         this.handleChange = this.handleChange.bind(this);
@@ -160,9 +164,9 @@ class NewPaletteForm extends Component {
         }));
     };
 
-    handleSubmit() {
-        let newName = this.state.newPaletteName;
-        const newPalette = { paletteName: newName, id: newName.toLocaleLowerCase().replace(/ /g, "-"), colors: this.state.colors };
+    handleSubmit(newPaletteName) {
+        // let newPaletteName = this.state.newPaletteName;
+        const newPalette = { paletteName: newPaletteName, id: newPaletteName.toLocaleLowerCase().replace(/ /g, "-"), colors: this.state.colors };
         this.props.savePalette(newPalette);
         this.props.history.push("/")
         console.log(newPalette);
@@ -188,46 +192,18 @@ class NewPaletteForm extends Component {
     }
 
     render() {
-        const { classes, theme } = this.props;
-        const { open } = this.state;
+        const { classes, theme, palettes } = this.props;
+        const { open, currentColour } = this.state;
         const palettesFull = this.state.colors.length === this.props.maxColours;
 
         return (
             <div className={classes.root}>
-                <CssBaseline />
-                <AppBar
-                    position="fixed"
-                    className={classNames(classes.appBar, {
-                        [classes.appBarShift]: open,
-                    })}
-                >
-                    <Toolbar disableGutters={!open}>
-                        <IconButton
-                            color="inherit"
-                            aria-label="Open drawer"
-                            onClick={this.handleDrawerOpen}
-                            className={classNames(classes.menuButton, open && classes.hide)}
-                        >
-                            <MenuIcon />
-                        </IconButton>
-                        <Typography variant="h6" color="inherit" noWrap>
-                            Persistent drawer
-                        </Typography>
-
-                        <ValidatorForm onSubmit={this.handleSubmit}>
-                            <TextValidator
-                                validators={["required", "isPaletteNameUnique"]}
-                                errorMessages={["this field is required", "Palette name already used"]}
-                                label="Palette Name"
-                                value={this.state.newPaletteName}
-                                onChange={this.handleChange}
-                                name="newPaletteName"
-                            />
-                            <Button variant="contained" color="secondary" type="submit">Save Palette</Button>
-                        </ValidatorForm>
-
-                    </Toolbar>
-                </AppBar>
+                <PaletteFormNav
+                    open={open}
+                    classes={classes}
+                    palettes={palettes}
+                    handleSubmit={this.handleSubmit}
+                    handleDrawerOpen={this.handleDrawerOpen} />
                 <Drawer
                     className={classes.drawer}
                     variant="persistent"
@@ -260,7 +236,7 @@ class NewPaletteForm extends Component {
                         </Button>
                     </div>
 
-                    <ChromePicker color={this.state.currentColour} onChangeComplete={(newColour) => {
+                    <ChromePicker color={currentColour} onChangeComplete={(newColour) => {
                         this.updateCurrentColour(newColour.hex)
 
                     }} />
