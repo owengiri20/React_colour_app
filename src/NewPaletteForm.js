@@ -1,6 +1,7 @@
 import React, { Component } from 'react';
 
 import PaletteFormNav from "./PaletteFormNav";
+import ColourPickerForm from "./ColourPickerForm";
 
 
 import classNames from 'classnames';
@@ -97,13 +98,9 @@ class NewPaletteForm extends Component {
         super(props);
         this.state = {
             open: true,
-            currentColour: "teal",
             colors: this.props.palettes[0].colors,
-            newColourName: "",
         };
         this.addNewColour = this.addNewColour.bind(this);
-        this.handleChange = this.handleChange.bind(this);
-        this.updateCurrentColour = this.updateCurrentColour.bind(this);
         this.handleSubmit = this.handleSubmit.bind(this);
         this.deleteColour = this.deleteColour.bind(this);
         this.clearColours = this.clearColours.bind(this);
@@ -141,23 +138,11 @@ class NewPaletteForm extends Component {
         this.setState({ open: false });
     };
 
-    updateCurrentColour(newColour) {
-        this.setState({ currentColour: newColour })
-    }
-
-    addNewColour() {
-        const { currentColour, newColourName } = this.state;
-        const newColour = { name: newColourName, color: currentColour };
+    addNewColour(newColour) {
         this.setState((st) => ({ colors: [...st.colors, newColour], newColourName: "" }));
     }
 
     /////////////////////////////////////////// 
-    handleChange(evt) {
-        this.setState({
-            [evt.target.name]: evt.target.value
-        });
-
-    }
     onSortEnd = ({ oldIndex, newIndex }) => {
         this.setState(({ colors }) => ({
             colors: arrayMove(colors, oldIndex, newIndex),
@@ -193,11 +178,12 @@ class NewPaletteForm extends Component {
 
     render() {
         const { classes, theme, palettes } = this.props;
-        const { open, currentColour } = this.state;
+        const { open, currentColour, colors } = this.state;
         const palettesFull = this.state.colors.length === this.props.maxColours;
 
         return (
             <div className={classes.root}>
+                {/* NAVBAR */}
                 <PaletteFormNav
                     open={open}
                     classes={classes}
@@ -236,33 +222,10 @@ class NewPaletteForm extends Component {
                         </Button>
                     </div>
 
-                    <ChromePicker color={currentColour} onChangeComplete={(newColour) => {
-                        this.updateCurrentColour(newColour.hex)
-
-                    }} />
-
-                    <ValidatorForm onSubmit={this.addNewColour}>
-                        <TextValidator
-                            value={this.state.newColourName}
-                            name="newColourName"
-                            validators={['required', 'isColourNameUnique', 'isColourUnique']}
-                            errorMessages={['field required', 'Colour name must be unique', 'colour must be unique']}
-                            onChange={this.handleChange}
-                        />
-                        <Button
-                            disabled={palettesFull}
-                            variant="contained"
-                            color="primary"
-                            style={{ backgroundColor: palettesFull ? "grey" : this.state.currentColour }}
-                            // onClick={this.addNewColour}
-                            type="submit"
-                        >
-                            {palettesFull ? "palette full" : "Add Colour"}
-                        </Button>
-                    </ValidatorForm>
-
-
-
+                    <ColourPickerForm
+                        palettesFull={palettesFull}
+                        addNewColour={this.addNewColour}
+                        colours={colors} />
                 </Drawer>
                 <main
                     className={classNames(classes.content, {
