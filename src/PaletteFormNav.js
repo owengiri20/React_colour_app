@@ -120,6 +120,7 @@ class PaletteFormNav extends Component {
                                 value={this.state.newPaletteName}
                                 onChange={this.handleChange}
                                 name="newPaletteName"
+                            // variant="fill"
                             />
                             <Button
                                 variant="contained"

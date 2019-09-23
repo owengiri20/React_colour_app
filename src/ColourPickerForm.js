@@ -26,6 +26,24 @@ import DraggableColourList from "./DraggableColourList";
 import { arrayMove } from "react-sortable-hoc";
 import { Link } from "react-router-dom";
 
+const styles = {
+    picker: {
+        width: "100% !important",
+        marginTop: "2rem"
+    },
+    addColour: {
+        width: "100%",
+        padding: "1rem",
+        marginTop: "1rem",
+        fontSize: "1.2rem"
+    },
+    colourNameInput: {
+        width: "100%",
+        marginTop: "1rem",
+
+    }
+}
+
 class ColourPickerForm extends Component {
     constructor(props) {
         super(props);
@@ -80,16 +98,22 @@ class ColourPickerForm extends Component {
         this.props.addNewColour(newColor);
     }
     render() {
-        const { palettesFull, addNewColour } = this.props;
+        const { palettesFull, addNewColour, classes } = this.props;
         const { currentColour, newColourName } = this.state;
         return (
             <div>
-                <ChromePicker color={currentColour} onChangeComplete={(newColour) => {
-                    this.updateCurrentColour(newColour.hex)
-                }} />
+                <ChromePicker
+                    color={currentColour}
+                    onChangeComplete={(newColour) => {
+                        this.updateCurrentColour(newColour.hex)
+                    }}
+                    className={classes.picker} />
 
                 <ValidatorForm onSubmit={this.handleSubmit}>
                     <TextValidator
+                        variant="filled"
+                        placeholder="Colour Name"
+                        className={classes.colourNameInput}
                         value={newColourName}
                         name="newColourName"
                         validators={['required', 'isColourNameUnique', 'isColourUnique']}
@@ -100,6 +124,7 @@ class ColourPickerForm extends Component {
                         disabled={palettesFull}
                         variant="contained"
                         color="primary"
+                        className={classes.addColour}
                         style={{ backgroundColor: palettesFull ? "grey" : currentColour }}
                         // onClick={this.addNewColour}
                         type="submit"
@@ -113,4 +138,4 @@ class ColourPickerForm extends Component {
     }
 }
 
-export default ColourPickerForm;
+export default withStyles(styles)(ColourPickerForm);
