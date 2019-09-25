@@ -19,6 +19,8 @@ import { arrayMove } from "react-sortable-hoc";
 import { Link } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 
+import PaletteMetaForm from "./PaletteMetaForm";
+
 const drawerWidth = 400;
 const styles = (theme) => ({
     appBar: {
@@ -81,16 +83,16 @@ class PaletteFormNav extends Component {
         this.setState({
             [evt.target.name]: evt.target.value
         });
-
     }
 
     render() {
-        const { classes, open } = this.props;
+        const { classes, open, palettes, handleSubmit } = this.props;
         const { newPaletteName } = this.state;
         return (
             <div className={classes.root}>
                 <CssBaseline />
                 <AppBar
+                    color="default"
                     position="fixed"
                     className={classNames(classes.appBar, {
                         [classes.appBarShift]: open,
@@ -112,7 +114,7 @@ class PaletteFormNav extends Component {
                     </Toolbar>
 
                     <div className={classes.navBtns}>
-                        <ValidatorForm onSubmit={() => this.props.handleSubmit(newPaletteName)}>
+                        {/* <ValidatorForm onSubmit={() => this.props.handleSubmit(newPaletteName)}>
                             <TextValidator
                                 validators={["required", "isPaletteNameUnique"]}
                                 errorMessages={["this field is required", "Palette name already used"]}
@@ -130,7 +132,10 @@ class PaletteFormNav extends Component {
                                 Save Palette
                             </Button>
 
-                        </ValidatorForm>
+                        </ValidatorForm> */}
+                        <PaletteMetaForm
+                            palettes={palettes}
+                            handleSubmit={handleSubmit} />
                         <Link to="/">
                             <Button variant="contained" color="secondary">Go Back</Button>
                         </Link>
