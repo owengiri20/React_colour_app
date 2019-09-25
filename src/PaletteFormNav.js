@@ -23,13 +23,17 @@ import PaletteMetaForm from "./PaletteMetaForm";
 
 const drawerWidth = 400;
 const styles = (theme) => ({
+    root: {
+        display: "flex"
+    },
     appBar: {
         transition: theme.transitions.create(['margin', 'width'], {
             easing: theme.transitions.easing.sharp,
             duration: theme.transitions.duration.leavingScreen,
         }),
         flexDirection: "row",
-        justifyContent: "space-between"
+        justifyContent: "space-between",
+        alignItems: "center"
     },
     appBarShift: {
         width: `calc(100% - ${drawerWidth}px)`,
@@ -44,6 +48,17 @@ const styles = (theme) => ({
         marginRight: 20,
     },
     navBtns: {
+        marginRight: "1rem",
+        display: "flex"
+    },
+    button: {
+        margin: "0rem 0.5rem",
+        padding: "0 .5rem",
+        // display: "inline-block"
+        // color: "red"
+    },
+    link: {
+        textDecoration: "none"
 
     }
 })
@@ -52,9 +67,11 @@ class PaletteFormNav extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            newPaletteName: ""
+            newPaletteName: "",
+            formShowing: false
         }
         this.handleChange = this.handleChange.bind(this);
+        this.showForm = this.showForm.bind(this);
 
     }
 
@@ -83,6 +100,11 @@ class PaletteFormNav extends Component {
         this.setState({
             [evt.target.name]: evt.target.value
         });
+    }
+
+    showForm(params) {
+        this.setState({ formShowing: true })
+
     }
 
     render() {
@@ -114,33 +136,27 @@ class PaletteFormNav extends Component {
                     </Toolbar>
 
                     <div className={classes.navBtns}>
-                        {/* <ValidatorForm onSubmit={() => this.props.handleSubmit(newPaletteName)}>
-                            <TextValidator
-                                validators={["required", "isPaletteNameUnique"]}
-                                errorMessages={["this field is required", "Palette name already used"]}
-                                label="Palette Name"
-                                value={this.state.newPaletteName}
-                                onChange={this.handleChange}
-                                name="newPaletteName"
-                            // variant="fill"
-                            />
+                        <Link to="/" className={classes.link}>
                             <Button
                                 variant="contained"
-                                color="secondary"
-                                type="submit"
-                            >
-                                Save Palette
-                            </Button>
-
-                        </ValidatorForm> */}
-                        <PaletteMetaForm
-                            palettes={palettes}
-                            handleSubmit={handleSubmit} />
-                        <Link to="/">
-                            <Button variant="contained" color="secondary">Go Back</Button>
+                                className={classes.button}
+                                color="secondary">
+                                Go Back
+                             </Button>
                         </Link>
+
+                        <Button
+                            className={classes.button}
+                            variant="contained"
+                            color="primary"
+                            onClick={this.showForm}>
+                            Save
+                        </Button>
                     </div>
                 </AppBar>
+                {this.props.formShowing ? <PaletteMetaForm
+                    palettes={palettes}
+                    handleSubmit={handleSubmit} /> : ""}
             </div>
         );
     }
