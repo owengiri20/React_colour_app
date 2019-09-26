@@ -20,6 +20,8 @@ import { Link } from "react-router-dom";
 import { withStyles } from '@material-ui/core/styles';
 
 import PaletteMetaForm from "./PaletteMetaForm";
+import ChevronRightIcon from '@material-ui/icons/ChevronRight';
+
 
 import { styles, drawerWidth } from "./styles/PaletteFormNavStyles"
 
@@ -88,13 +90,14 @@ class PaletteFormNav extends Component {
                     })}
                 >
                     <Toolbar disableGutters={!open}>
+
                         <IconButton
                             color="inherit"
                             aria-label="Open drawer"
                             onClick={this.props.handleDrawerOpen}
                             className={classNames(classes.menuButton, open && classes.hide)}
                         >
-                            <MenuIcon />
+                            <ChevronRightIcon />
                         </IconButton>
                         <Typography variant="h6" color="inherit" noWrap>
                             Create a Palette

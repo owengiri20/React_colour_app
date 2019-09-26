@@ -6,8 +6,6 @@ const DraggableColourList = SortableContainer(function ({ colors, deleteColour }
     // const { colors } = props
     return (
         <div style={{ height: "100%" }}>
-            <h1>Sortable List</h1>
-
             {colors.map((color, i) => (
                 <DraggableColourBox
                     index={i}

@@ -38,7 +38,10 @@ const styles = (theme) => ({
     link: {
         textDecoration: "none"
 
-    }
+    },
+    hide: {
+        display: 'none',
+    },
 })
 
 export { styles, drawerWidth }
