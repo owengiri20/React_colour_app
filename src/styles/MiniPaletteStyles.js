@@ -5,8 +5,11 @@ export default {
         padding: "0.5rem",
         position: "relative",
         overflow: "hidden",
-        "&:hover": {
-            cursor: "pointer"
+        cursor: "pointer",
+        transition: ".15s ease-in-out",
+        "&:hover svg": {
+            opacity: 1,
+            transition: ".2s ease-in"
         }
     },
     colours: {
@@ -38,5 +41,23 @@ export default {
         margin: "0 auto",
         position: "relative",
         marginBottom: "-3.5px"
+    },
+    delete: {
+        // position: "relative"
+    },
+    deleteBtn: {
+        position: "absolute",
+        color: "white",
+        backgroundColor: "red",
+        width: "20px",
+        height: "20px",
+        right: "0",
+        top: "0",
+        padding: "10px",
+        zIndex: "10",
+        borderRadius: "2px",
+        opacity: 0,
+
+
     }
 }
