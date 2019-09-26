@@ -72,6 +72,8 @@ class PaletteFormNav extends Component {
         }
         this.handleChange = this.handleChange.bind(this);
         this.showForm = this.showForm.bind(this);
+        this.hideForm = this.hideForm.bind(this);
+
 
     }
 
@@ -102,9 +104,13 @@ class PaletteFormNav extends Component {
         });
     }
 
-    showForm(params) {
+    showForm() {
         this.setState({ formShowing: true })
+        console.log(123);
+    }
 
+    hideForm() {
+        this.setState({ formShowing: false })
     }
 
     render() {
@@ -136,6 +142,7 @@ class PaletteFormNav extends Component {
                     </Toolbar>
 
                     <div className={classes.navBtns}>
+
                         <Link to="/" className={classes.link}>
                             <Button
                                 variant="contained"
@@ -154,9 +161,10 @@ class PaletteFormNav extends Component {
                         </Button>
                     </div>
                 </AppBar>
-                {this.props.formShowing ? <PaletteMetaForm
+                {this.state.formShowing ? <PaletteMetaForm
                     palettes={palettes}
-                    handleSubmit={handleSubmit} /> : ""}
+                    handleSubmit={handleSubmit}
+                    hideForm={this.hideForm} /> : ""}
             </div>
         );
     }
