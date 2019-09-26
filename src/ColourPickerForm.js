@@ -25,24 +25,7 @@ import { ValidatorForm, TextValidator } from 'react-material-ui-form-validator';
 import DraggableColourList from "./DraggableColourList";
 import { arrayMove } from "react-sortable-hoc";
 import { Link } from "react-router-dom";
-
-const styles = {
-    picker: {
-        width: "100% !important",
-        marginTop: "2rem"
-    },
-    addColour: {
-        width: "100%",
-        padding: "1rem",
-        marginTop: "1rem",
-        fontSize: "1.2rem"
-    },
-    colourNameInput: {
-        width: "100%",
-        marginTop: "1rem",
-
-    }
-}
+import styles from "./styles/ColourPickerFormStyles";
 
 class ColourPickerForm extends Component {
     constructor(props) {
