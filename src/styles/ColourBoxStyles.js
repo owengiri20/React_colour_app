@@ -3,12 +3,13 @@ import sizes from "./sizes";
 const styles = {
     colourBox: {
         width: "20%",
-        height: props => props.showFullPalette ? "25%" : "50%",
+        height: props => (props.showFullPalette ? "25%" : "50%"),
         margin: "0 auto",
         display: "inline-block",
         position: "relative",
         cursor: "pointer",
         marginBottom: "-3.5px",
+        float: "left",
         "&:hover button": {
             opacity: "1"
         },
@@ -18,7 +19,7 @@ const styles = {
         },
         [sizes.down("md")]: {
             width: "50%",
-            height: props => props.showFullPalette ? "10%" : "50%"
+            height: props => props.showFullPalette ? "10%" : "20%"
 
         },
         [sizes.down("xs")]: {
@@ -28,9 +29,10 @@ const styles = {
 
     },
 
-    goBack: {
-        backgroundColor: "black"
-    },
+    // goBack: {
+    //     backgroundColor: "black",
+
+    // },
     copyText: {
         color: (props) => chroma(props.background).luminance() >= .7 ? "black" : "white"
     },
@@ -48,6 +50,10 @@ const styles = {
         background: " #00000057",
         border: "0",
         textAlign: "center",
+        [sizes.down("xs")]: {
+            padding: "6.2px",
+
+        }
 
     },
     copyButton: {
@@ -92,7 +98,7 @@ const styles = {
     },
     showOverlay: {
         opacity: "1",
-        transform: "scale(20)",
+        transform: "scale(50)",
         zIndex: "10",
         position: "absolute",
         overflow: "hidden"
@@ -120,7 +126,10 @@ const styles = {
             width: "100%",
             textAlign: "center",
             alignContent: "center",
-            textTransform: "uppercase"
+            textTransform: "uppercase",
+            [sizes.down("xs")]: {
+                fontSize: "3.2rem"
+            }
         }
     },
     showCopyMsg: {

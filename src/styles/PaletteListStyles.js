@@ -1,12 +1,11 @@
 export default {
     root: {
         backgroundColor: "blue",
-        // height: "100%",
         minHeight: "100vh",
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
-
+        overflow: "scroll"
     },
     container: {
         width: "50%",
@@ -32,7 +31,7 @@ export default {
         width: "100%",
         display: "grid",
         gridTemplateColumns: "repeat(3, 30%)",
-        gridGap: "5%"
+        gridGap: "2rem"
 
     },
     linkPalette: {

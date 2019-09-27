@@ -25,9 +25,15 @@ class ColourBox extends Component {
         const { copied } = this.state;
 
         return (
-            <CopyToClipboard text={background} onCopy={this.changeCopyState}>
-                <div style={{ background }} className={classes.colourBox}>
-                    <div style={{ background }} className={`${classes.copyOverlay} ${copied && classes.showOverlay}`}></div>
+            <CopyToClipboard
+                text={background}
+                onCopy={this.changeCopyState}>
+                <div
+                    style={{ background }}
+                    className={classes.colourBox}>
+                    <div
+                        style={{ background }}
+                        className={`${classes.copyOverlay} ${copied && classes.showOverlay}`}></div>
                     <div className={`${classes.copyMsg} ${copied && classes.showCopyMsg}`}>
                         <h1 className={""}>copied!</h1>
                         <p className={classes.copyText}>{background}</p>

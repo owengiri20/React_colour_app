@@ -37,12 +37,17 @@ class Palette extends Component {
         )
         return (
             <div className={classes.Palette}>
-                <Navbar level={level} changeLevel={this.changeLevel} handleChange={this.changeFormat} showingAllColours />
-                <div className={classes.colours}>
-                    {/* bunch of colour boxes */}
-                    {colourBoxes}
-                </div>
-                <PaletteFooter paletteName={paletteName} emoji={emoji} style={{ bottom: "0" }} />
+                <Navbar
+                    level={level}
+                    changeLevel={this.changeLevel}
+                    handleChange={this.changeFormat}
+                    showingAllColours
+                />
+                <div className={classes.colours}>{colourBoxes}</div>
+                <PaletteFooter
+                    paletteName={paletteName}
+                    emoji={emoji}
+                />
 
             </div>
         );
