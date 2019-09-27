@@ -1,7 +1,7 @@
 export default {
     Palette: {
         height: "100vh",
-        overflow: "hidden",
+        overflow: "scroll",
         flexDirection: "column"
     },
     colours: {
