@@ -1,4 +1,5 @@
-import sizes from "./sizes"
+import sizes from "./sizes";
+import bg from "./bg1.svg";
 export default {
     root: {
         backgroundColor: "blue",
@@ -6,6 +7,10 @@ export default {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
+        backgroundColor: "#f3ffd1",
+        backgroundImage: `url(${bg})`,
+        backgroundAttachment: "fixed",
+        backgroundSize: "cover",
     },
     container: {
         width: "50%",
@@ -26,10 +31,20 @@ export default {
         width: "100%",
         justifyContent: "space-between",
         alignItems: "center",
-        color: "white",
+        color: "#333",
         "& a": {
-            color: "#fff",
+            color: "#333",
             textDecoration: "none",
+            border: "1px solid #333",
+            padding: ".3rem .5rem",
+            borderRadius: "10px",
+            transition: ".2s ease-in-out",
+            "&:hover": {
+                color: "#f4f4f4",
+                backgroundColor: "#333",
+                transition: ".1s ease-in-out"
+
+            }
         }
 
     },
