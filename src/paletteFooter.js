@@ -12,7 +12,7 @@ const styles = {
         [sizes.down("xs")]: {
             textAlign: "center",
             justifyContent: "center",
-            height: "4vh",
+            height: "3vh",
         }
     },
     emoji: {

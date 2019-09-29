@@ -1,8 +1,11 @@
 import { DRAWER_WIDTH } from "../constants";
+import sizes from "./sizes"
+
 const drawerWidth = DRAWER_WIDTH;
 const styles = (theme) => ({
     root: {
-        display: "flex"
+        display: "flex",
+
     },
     appBar: {
         transition: theme.transitions.create(['margin', 'width'], {
@@ -27,13 +30,21 @@ const styles = (theme) => ({
     },
     navBtns: {
         marginRight: "1rem",
-        display: "flex"
+        display: "flex",
+        [sizes.down("sm")]: {
+            marginRight: ".25rem",
+
+        }
     },
     button: {
         margin: "0rem 0.5rem",
         padding: "0 .5rem",
-        // display: "inline-block"
-        // color: "red"
+        [sizes.down("sm")]: {
+            margin: "0rem",
+            fontSize: ".7rem",
+            padding: "0 .49rem",
+            margin: "0rem 0.62rem",
+        }
     },
     link: {
         textDecoration: "none"
