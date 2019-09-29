@@ -7,6 +7,7 @@ export default {
         display: "flex",
         alignItems: "flex-start",
         justifyContent: "center",
+        /* background by SVGBackgrounds.com */
         backgroundColor: "#f3ffd1",
         backgroundImage: `url(${bg})`,
         backgroundAttachment: "fixed",
